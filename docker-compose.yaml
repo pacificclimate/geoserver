@@ -1,0 +1,34 @@
+version: '2.3'
+services:
+  geoserver:
+    image: docker-registry01.pcic.uvic.ca:5000/pcic/geoserver_basic:0.04
+    container_name: geoserver_basic_0.04
+    ports:
+      - "30124:8080"
+    volumes:
+      - type: bind
+        source: /storage/data/projects/comp_support/geoserver_data/2.17.x/web.xml
+        target: /opt/geoserver/webapps/geoserver/WEB-INF/web.xml
+      - type: bind
+        source: /storage/data/projects/comp_support/geoserver_data/2.17.x/users.xml
+        target: /opt/geoserver/data_dir/security/usergroup/default/users.xml
+      - type: bind
+        source: /storage/data/projects/comp_support/geoserver_data/2.17.x/global.xml
+        target: /opt/geoserver/data_dir/global.xml
+      - type: bind
+        source: /storage/data/projects/comp_support/geoserver_data/2.17.x/masterpw.digest
+        target: /opt/geoserver/data_dir/security/masterpw.digest
+      - type: bind
+        source: /storage/data/projects/comp_support/geoserver_data/2.17.x/workspaces_bc_regions
+        target: /opt/geoserver/data_dir/workspaces/bc_regions
+      - type: bind
+        source: /storage/data/projects/comp_support/geoserver_data/2.17.x/data_bc_regions
+        target: /opt/geoserver/data_dir/data/bc_regions
+    mem_limit: 2g
+    memswap_limit: 2g
+    restart: unless-stopped
+
+networks:
+  default:
+    external:
+      name: pcicbr0
