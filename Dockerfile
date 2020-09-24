@@ -1,4 +1,4 @@
-FROM java:openjdk-8-jre-alpine
+FROM openjdk:8-jre-slim
 
 MAINTAINER Matthew Benstead <matthewb@uvic.ca>
 
@@ -10,7 +10,7 @@ ENV JAVA_OPTS -Xms128m -Xmx512m -XX:MaxPermSize=512m
 ENV GEOSERVER_HOME /opt/geoserver
 ENV GEOSERVER_DATA_DIR /opt/geoserver/data_dir
 
-RUN apk add --update openssl
+RUN apt-get update && apt-get install -y openssl unzip wget && rm -rf /var/lib/apt/lists/* 
 RUN wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-bin.zip \
          -O /tmp/geoserver-${GEOSERVER_VERSION}-bin.zip && \
     mkdir -p /opt/geoserver-${GEOSERVER_VERSION} && \
