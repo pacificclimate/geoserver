@@ -1,10 +1,8 @@
 FROM openjdk:11-jre-slim
 
-MAINTAINER Matthew Benstead <matthewb@uvic.ca>
-
 EXPOSE 8080
 
-ARG GEOSERVER_VERSION=2.18.4
+ARG GEOSERVER_VERSION=2.25.0
 
 ENV JAVA_OPTS -Xms128m -Xmx512m -XX:MaxPermSize=512m
 ENV GEOSERVER_HOME /opt/geoserver
