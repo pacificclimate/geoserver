@@ -16,12 +16,16 @@ RUN groupadd -r geoserver && \
     mkdir -p /opt/geoserver-${GEOSERVER_VERSION} && \
     cd /opt && \
     ln -s geoserver-${GEOSERVER_VERSION} geoserver && \
-    chown geoserver:geoserver /opt/geoserver
-USER geoserver
+    chown -R geoserver:geoserver /opt/geoserver
+
 RUN wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/${GEOSERVER_VERSION}/geoserver-${GEOSERVER_VERSION}-bin.zip \
-         -O /tmp/geoserver-${GEOSERVER_VERSION}-bin.zip && \
+    -O /tmp/geoserver-${GEOSERVER_VERSION}-bin.zip && \
     unzip /tmp/geoserver-${GEOSERVER_VERSION}-bin.zip -d /opt/geoserver-${GEOSERVER_VERSION} && \
     rm /tmp/geoserver-${GEOSERVER_VERSION}-bin.zip
+
+
+RUN chown -R geoserver:geoserver /opt/geoserver-${GEOSERVER_VERSION}
+USER geoserver
 
 WORKDIR /opt/geoserver
 
