@@ -11,8 +11,8 @@ ENV GEOSERVER_DATA_DIR /opt/geoserver/data_dir
 RUN apt-get update && \
     apt-get install -y openssl unzip wget && \
     rm -rf /var/lib/apt/lists/* 
-RUN groupadd -r geoserver && \
-    useradd -r -d /opt/geoserver -g geoserver geoserver && \
+RUN groupadd -r -g 30669 geoserver && \
+    useradd -r -u 30669 -d /opt/geoserver -g geoserver geoserver && \
     mkdir -p /opt/geoserver-${GEOSERVER_VERSION} && \
     cd /opt && \
     ln -s geoserver-${GEOSERVER_VERSION} geoserver && \
