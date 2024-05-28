@@ -9,7 +9,7 @@ ENV GEOSERVER_HOME /opt/geoserver
 ENV GEOSERVER_DATA_DIR /opt/geoserver/data_dir
 
 RUN apt-get update && \
-    apt-get install -y openssl unzip wget && \
+    apt-get install -y openssl unzip wget fontconfig fonts-dejavu-core fonts-dejavu-extra  && \
     rm -rf /var/lib/apt/lists/* 
 RUN groupadd -r -g 30669 geoserver && \
     useradd -r -u 30669 -d /opt/geoserver -g geoserver geoserver && \
