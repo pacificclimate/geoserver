@@ -35,13 +35,6 @@ RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERV
     cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
     rm -rf /tmp/geoserver-${GEOSERVER_VERSION}-mbstyle-plugin.zip /tmp/geoserver-plugins
 
-# MB Tiles
-# https://build.geoserver.org/geoserver/2.25.x/community-latest/geoserver-2.25-SNAPSHOT-mbtiles-plugin.zip
-RUN wget -c https://build.geoserver.org/geoserver/${GEOSERVER_MINOR}.x/community-latest/geoserver-${GEOSERVER_MINOR}-SNAPSHOT-mbtiles-plugin.zip \
-    -O /tmp/geoserver-${GEOSERVER_MINOR}-SNAPSHOT-mbtiles-plugin.zip && \
-    unzip /tmp/geoserver-${GEOSERVER_VERSION}-mbtiles-plugin.zip -d /tmp/geoserver-plugins && \
-    cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
-    rm -rf /tmp/geoserver-${GEOSERVER_MINOR}-SNAPSHOT-mbtiles-plugin.zip /tmp/geoserver-plugins
 
 RUN chown -R geoserver:geoserver /opt/geoserver-${GEOSERVER_VERSION}
 USER geoserver
