@@ -3,7 +3,7 @@ FROM openjdk:11-jre-slim
 EXPOSE 8080
 
 ARG GEOSERVER_VERSION=2.25.0
-
+ARG GEOSERVER_MINOR=2.25
 ENV JAVA_OPTS -Xms128m -Xmx512m -XX:MaxPermSize=512m
 ENV GEOSERVER_HOME /opt/geoserver
 ENV GEOSERVER_DATA_DIR /opt/geoserver/data_dir
@@ -36,11 +36,12 @@ RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERV
     rm -rf /tmp/geoserver-${GEOSERVER_VERSION}-mbstyle-plugin.zip /tmp/geoserver-plugins
 
 # MB Tiles
-RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/extensions/geoserver-${GEOSERVER_VERSION}-mbtiles-plugin.zip \
-    -O /tmp/geoserver-${GEOSERVER_VERSION}-mbtiles-plugin.zip && \
+# https://build.geoserver.org/geoserver/2.25.x/community-latest/geoserver-2.25-SNAPSHOT-mbtiles-plugin.zip
+RUN wget -c https://build.geoserver.org/geoserver/${GEOSERVER_MINOR}.x/community-latest/geoserver-${GEOSERVER_MINOR}-SNAPSHOT-mbtiles-plugin.zip \
+    -O /tmp/geoserver-${GEOSERVER_MINOR}-SNAPSHOT-mbtiles-plugin.zip && \
     unzip /tmp/geoserver-${GEOSERVER_VERSION}-mbtiles-plugin.zip -d /tmp/geoserver-plugins && \
     cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
-    rm -rf /tmp/geoserver-${GEOSERVER_VERSION}-mbtiles-plugin.zip /tmp/geoserver-plugins
+    rm -rf /tmp/geoserver-${GEOSERVER_MINOR}-SNAPSHOT-mbtiles-plugin.zip /tmp/geoserver-plugins
 
 RUN chown -R geoserver:geoserver /opt/geoserver-${GEOSERVER_VERSION}
 USER geoserver
