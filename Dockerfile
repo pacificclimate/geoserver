@@ -23,6 +23,27 @@ RUN wget -c http://downloads.sourceforge.net/project/geoserver/GeoServer/${GEOSE
     unzip /tmp/geoserver-${GEOSERVER_VERSION}-bin.zip -d /opt/geoserver-${GEOSERVER_VERSION} && \
     rm /tmp/geoserver-${GEOSERVER_VERSION}-bin.zip
 
+# Vector Tiles Plugin
+RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/extensions/geoserver-${GEOSERVER_VERSION}-vectortiles-plugin.zip \
+    -O /tmp/geoserver-${GEOSERVER_VERSION}-vectortiles-plugin.zip && \
+    unzip /tmp/geoserver-${GEOSERVER_VERSION}-vectortiles-plugin.zip -d /tmp/geoserver-plugins && \
+    cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
+    rm -rf /tmp/geoserver-${GEOSERVER_VERSION}-vectortiles-plugin.zip /tmp/geoserver-plugins
+
+# MBStyle Plugin
+RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/extensions/geoserver-${GEOSERVER_VERSION}-mbstyle-plugin.zip \
+    -O /tmp/geoserver-${GEOSERVER_VERSION}-mbstyle-plugin.zip && \
+    unzip /tmp/geoserver-${GEOSERVER_VERSION}-mbstyle-plugin.zip -d /tmp/geoserver-plugins && \
+    cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
+    rm -rf /tmp/geoserver-${GEOSERVER_VERSION}-mbstyle-plugin.zip /tmp/geoserver-plugins
+
+# MBTiles Plugin
+RUN wget -c https://build.geoserver.org/geoserver/2.25.x/community-latest/geoserver-2.25-SNAPSHOT-mbtiles-plugin.zip \
+    -O /tmp/geoserver-2.25-SNAPSHOT-mbtiles-plugin.zip && \
+    unzip /tmp/geoserver-2.25-SNAPSHOT-mbtiles-plugin.zip -d /tmp/geoserver-plugins && \
+    cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
+    rm -rf /tmp/geoserver-2.25-SNAPSHOT-mbtiles-plugin.zip /tmp/geoserver-plugins
+
 RUN chown -R geoserver:geoserver /opt/geoserver-${GEOSERVER_VERSION}
 USER geoserver
 
