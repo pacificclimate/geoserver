@@ -44,6 +44,21 @@ RUN wget -c https://build.geoserver.org/geoserver/2.25.x/community-latest/geoser
     cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
     rm -rf /tmp/geoserver-2.25-SNAPSHOT-mbtiles-plugin.zip /tmp/geoserver-plugins
 
+# GeoPackage plugin 
+RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/extensions/geoserver-${GEOSERVER_VERSION}-geopkg-output-plugin.zip \
+    -O /tmp/geoserver-${GEOSERVER_VERSION}-geopkg-output-plugin.zip && \
+    unzip /tmp/geoserver-${GEOSERVER_VERSION}-geopkg-output-plugin.zip -d /tmp/geoserver-plugins && \
+    cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
+    rm -rf /tmp/geoserver-${GEOSERVER_VERSION}-geopkg-output-plugin.zip /tmp/geoserver-plugins
+
+#  WPS plugin 
+RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERVER_VERSION}/extensions/geoserver-${GEOSERVER_VERSION}-wps-plugin.zip \
+    -O /tmp/geoserver-${GEOSERVER_VERSION}-wps-plugin.zip && \
+    unzip /tmp/geoserver-${GEOSERVER_VERSION}-wps-plugin.zip -d /tmp/geoserver-plugins && \
+    cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
+    rm -rf /tmp/geoserver-${GEOSERVER_VERSION}-wps-plugin.zip /tmp/geoserver-plugins
+
+
 RUN chown -R geoserver:geoserver /opt/geoserver-${GEOSERVER_VERSION}
 USER geoserver
 
