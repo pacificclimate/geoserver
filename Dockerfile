@@ -1,10 +1,10 @@
-FROM openjdk:11-jre-slim
+FROM openjdk:17-jre-slim
 
 EXPOSE 8080
 
 ARG GEOSERVER_VERSION=2.25.2
 ARG GEOSERVER_MINOR=2.25
-ENV JAVA_OPTS -Xms128m -Xmx512m -XX:MaxPermSize=512m
+ENV JAVA_OPTS -Xms256m  -Xmx1g
 ENV GEOSERVER_HOME /opt/geoserver
 ENV GEOSERVER_DATA_DIR /opt/geoserver/data_dir
 
