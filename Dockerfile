@@ -2,7 +2,7 @@ FROM openjdk:11-jre-slim
 
 EXPOSE 8080
 
-ARG GEOSERVER_VERSION=2.25.2
+ARG GEOSERVER_VERSION=2.25.4
 ARG GEOSERVER_MINOR=2.25
 ENV JAVA_OPTS -Xms256m -Xmx4g -XX:SoftRefLRUPolicyMSPerMB=36000 -XX:+UseG1GC -XX:+UseStringDeduplication
 ENV GEOSERVER_HOME /opt/geoserver
@@ -58,6 +58,12 @@ RUN wget -c https://sourceforge.net/projects/geoserver/files/GeoServer/${GEOSERV
     cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
     rm -rf /tmp/geoserver-${GEOSERVER_VERSION}-wps-plugin.zip /tmp/geoserver-plugins
 
+# Backup and restore plugin
+RUN wget -c https://build.geoserver.org/geoserver/2.25.x/community-latest/geoserver-2.25-SNAPSHOT-backup-restore-plugin.zip\
+    -O /tmp/geoserver-2.25-SNAPSHOT-backup-restore-plugin.zip && \
+    unzip /tmp/geoserver-2.25-SNAPSHOT-backup-restore-plugin.zip -d /tmp/geoserver-plugins && \
+    cp /tmp/geoserver-plugins/*.jar /opt/geoserver-${GEOSERVER_VERSION}/webapps/geoserver/WEB-INF/lib/ && \
+    rm -rf /tmp/geoserver-2.25-SNAPSHOT-backup-restore-plugin.zip /tmp/geoserver-plugins
 
 RUN chown -R geoserver:geoserver /opt/geoserver-${GEOSERVER_VERSION}
 USER geoserver
