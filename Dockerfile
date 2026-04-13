@@ -1,6 +1,6 @@
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:11-jre-jammy
 
-MAINTAINER Matthew Benstead <matthewb@uvic.ca>
+LABEL org.opencontainers.image.authors="Matthew Benstead <matthewb@uvic.ca>"
 
 EXPOSE 8080
 
